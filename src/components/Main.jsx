@@ -6,9 +6,11 @@ function Main() {
 
   function handleUserInput(formData) {
     let newIgredient = formData.get("ingredient");
-    /^[A-Za-z]{2,}$/.test(newIgredient.trim()) ? setUserInput((prev) => {
-      return [...prev, newIgredient]
-    }) : null
+    /^[A-Za-z]{2,}$/.test(newIgredient.trim())
+      ? setUserInput((prev) => {
+          return [...prev, newIgredient];
+        })
+      : null;
   }
 
   const ingredientListItem = userInput.map((eachIngrdient) => (
@@ -32,7 +34,7 @@ function Main() {
           +Add ingredient
         </button>
       </form>
-      <div>
+      {userInput.length > 0 ?(<div>
         <div className="mt-12">
           <h2 className="text-2xl font-medium">Ingredients on hand:</h2>
           <ul className="list-disc font-light p-4">{ingredientListItem}</ul>
@@ -45,9 +47,12 @@ function Main() {
               Generate a recipe from your list of ingredients.
             </p>
           </div>
-          <button className="bg-secondary mt-2 p-1 rounded-sm py-1 px-3 text-white">Get a recipe</button>
+          <button className="bg-secondary mt-2 p-1 rounded-sm py-1 px-3 text-white">
+            Get a recipe
+          </button>
         </div>
-      </div>
+      </div>) : null}
+      
     </div>
   );
 }
