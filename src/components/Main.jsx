@@ -6,9 +6,9 @@ function Main() {
 
   function handleUserInput(formData) {
     let newIgredient = formData.get("ingredient");
-    setUserInput((prev) => {
-      return [...prev, newIgredient];
-    });
+    /^[A-Za-z]{2,}$/.test(newIgredient.trim()) ? setUserInput((prev) => {
+      return [...prev, newIgredient]
+    }) : null
   }
 
   const ingredientListItem = userInput.map((eachIngrdient) => (
