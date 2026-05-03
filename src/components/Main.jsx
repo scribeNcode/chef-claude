@@ -5,10 +5,10 @@ function Main() {
   const [userInput, setUserInput] = useState([]);
 
   function handleUserInput(formData) {
-    let newIgredient = formData.get("ingredient");
-    /^[A-Za-z]{2,}$/.test(newIgredient.trim())
+    let newIngredient = formData.get("ingredient");
+    /^(?=.{2,}$)[A-Za-z0-9]+(?: [A-Za-z0-9]+)*$/.test(newIngredient)
       ? setUserInput((prev) => {
-          return [...prev, newIgredient];
+          return [...prev, newIngredient];
         })
       : null;
   }
@@ -29,30 +29,36 @@ function Main() {
           name="ingredient"
           id=""
           placeholder="e.g. oregano"
+          aria-label="Ingredient name "
         />
         <button className="bg-primary text-white py-1 px-5 rounded-sm">
           +Add ingredient
         </button>
       </form>
-      {userInput.length > 0 ?(<div>
-        <div className="mt-12">
-          <h2 className="text-2xl font-medium">Ingredients on hand:</h2>
-          <ul className="list-disc font-light p-4">{ingredientListItem}</ul>
-        </div>
-
-        <div className="w-[100%] bg-[#f0efeb] rounded-sm mt-6 p-4">
-          <div>
-            <h3 className="font-medium text-[1.2rem]">Ready for a recipe?</h3>
-            <p className="font-light">
-              Generate a recipe from your list of ingredients.
-            </p>
+      {userInput.length > 0 ? (
+        <div>
+          <div className="mt-12">
+            <h2 className="text-2xl font-medium">Ingredients on hand:</h2>
+            <ul className="list-disc font-light p-4">{ingredientListItem}</ul>
           </div>
-          <button className="bg-secondary mt-2 p-1 rounded-sm py-1 px-3 text-white">
-            Get a recipe
-          </button>
+
+          {userInput.length > 3 ? (
+            <div className="w-[100%] bg-[#f0efeb] rounded-sm mt-6 p-4">
+              <div>
+                <h3 className="font-medium text-[1.2rem]">
+                  Ready for a recipe?
+                </h3>
+                <p className="font-light">
+                  Generate a recipe from your list of ingredients.
+                </p>
+              </div>
+              <button className="bg-secondary mt-2 p-1 rounded-sm py-1 px-3 text-white">
+                Get a recipe
+              </button>
+            </div>
+          ) : null}
         </div>
-      </div>) : null}
-      
+      ) : null}
     </div>
   );
 }
